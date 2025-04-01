@@ -1,0 +1,23 @@
+STUDENT MANAGEMENT SYSTEM
+    This is a simple management system built with PHP, HTML, CSS, and JavaScript. The system does not use a database but relies on sessions for data storage.
+
+Requirements to run this project:
+- A local server environment such as XAMPP, WAMP, or LAMP
+- PHP (Version 7.4 or later recommended)
+- A web browser
+
+System Overview:
+• home.php: Act as the start up page for the sytem.
+• index.php: Main user interface of the system.
+• backend.php: Handles backend processing and session management.
+• script.js: Contains JavaScript code for dynamic functionalities.
+• style.css: Defines the styling of the web application.
+
+Running the system:
+- Open a web browser make sure that you apache is on.
+- In the address bar, type "http://localhost/StudentManagementSystem/home.php"
+- Press Enter and run the system
+
+Instructions on how to use the system:
+1) After landing on the home.php or the start up page of the system click the "Get Started" button.
+2) Upon clicking you will now be 
