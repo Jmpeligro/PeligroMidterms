@@ -1,67 +1,68 @@
-1) Circles with many circles
+public class CustomGraphicsView extends View {
+    Paint paint;
 
-@Override
-protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-    Paint paint = new Paint();
-    
-    int[] colors = {Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.MAGENTA};
-    int radius = 50;
-    for (int color : colors) {
-        paint.setColor(color);
-        canvas.drawCircle(200, 200, radius, paint);
-        radius += 30;
+    public CustomGraphicsView(Context context) {
+        super(context);
+        paint = new Paint();
+        paint.setAntiAlias(true);
     }
-}
 
-2) Rectangle with section text 
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
 
- @Override
-protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-    Paint paint = new Paint();
+        // Example base positions
+        int centerX = 250;
+        int centerY = 250;
 
-    // Draw magenta rectangle
-    paint.setColor(Color.MAGENTA);
-    RectF rect = new RectF(50, 100, 450, 200);  // position and size
-    canvas.drawRect(rect, paint);
+        drawTarget(canvas, 200, 200);
+        drawMagentaBanner(canvas, 600, 200);
+        drawGreenBoxWithBlueX(canvas, 200, 600);
+        drawPacman(canvas, 600, 600);
+    }
 
-    // Draw text
-    paint.setColor(Color.WHITE); // white text for visibility
-    paint.setTextSize(40);
-    paint.setTextAlign(Paint.Align.CENTER);
-    
-    float x = rect.centerX();
-    float y = rect.centerY() - ((paint.descent() + paint.ascent()) / 2);  // center vertically
-    canvas.drawText("YOUR SECTION HERE", x, y, paint);
-}
+    private void drawTarget(Canvas canvas, int x, int y) {
+        int[] colors = {Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, Color.MAGENTA};
+        int radius = 100;
 
-3) Rectangle with cross
+        for (int i = 0; i < colors.length; i++) {
+            paint.setColor(colors[i]);
+            canvas.drawCircle(x, y, radius - i * 20, paint);
+        }
+    }
 
-@Override
-protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-    Paint paint = new Paint();
-    paint.setStrokeWidth(5);
-    
-    paint.setColor(Color.GREEN);
-    canvas.drawLine(0, 0, getWidth(), getHeight(), paint);
-    
-    paint.setColor(Color.BLUE);
-    canvas.drawLine(0, getHeight(), getWidth(), 0, paint);
-}
+    private void drawMagentaBanner(Canvas canvas, int x, int y) {
+        paint.setColor(Color.MAGENTA);
+        canvas.drawRect(x, y, x + 300, y + 100, paint);
 
-4) Pacman
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(30);
+        canvas.drawText("YOUR SECTION HERE", x + 20, y + 60, paint);
+    }
 
-@Override
-protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-    Paint paint = new Paint();
-    paint.setStyle(Paint.Style.FILL);
-    
-    paint.setColor(Color.MAGENTA);
-    canvas.drawArc(new RectF(100, 100, 300, 300), 45, 270, true, paint);
-    
-    paint.setColor(Color.YELLOW);
-    canvas.drawCircle(180, 150, 10, paint); // eye
+    private void drawGreenBoxWithBlueX(Canvas canvas, int x, int y) {
+        // Green box
+        paint.setColor(Color.GREEN);
+        canvas.drawRect(x, y, x + 200, y + 200, paint);
+
+        // White fill inside
+        paint.setColor(Color.WHITE);
+        canvas.drawRect(x + 5, y + 5, x + 195, y + 195, paint);
+
+        // Blue X
+        paint.setColor(Color.BLUE);
+        paint.setStrokeWidth(10);
+        canvas.drawLine(x + 10, y + 10, x + 190, y + 190, paint);
+        canvas.drawLine(x + 190, y + 10, x + 10, y + 190, paint);
+    }
+
+    private void drawPacman(Canvas canvas, int x, int y) {
+        paint.setColor(Color.MAGENTA);
+        RectF oval = new RectF(x, y, x + 200, y + 200);
+        canvas.drawArc(oval, 45, 270, true, paint); // mouth angle
+
+        // Eye (yellow circle)
+        paint.setColor(Color.YELLOW);
+        canvas.drawCircle(x + 140, y + 40, 10, paint);
+    }
 }
