@@ -1,83 +1,67 @@
-package com.example.finalspracticegraphics;
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.view.View;
+1) Circles with many circles
 
-public class FinalGraphicsPractice extends View {
-    private Paint paint = new Paint();
-
-    public FinalGraphicsPractice(Context context) {
-        super(context);
+@Override
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+    Paint paint = new Paint();
+    
+    int[] colors = {Color.RED, Color.GREEN, Color.YELLOW, Color.BLUE, Color.MAGENTA};
+    int radius = 50;
+    for (int color : colors) {
+        paint.setColor(color);
+        canvas.drawCircle(200, 200, radius, paint);
+        radius += 30;
     }
+}
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        canvas.drawColor(Color.WHITE);
+2) Rectangle with section text 
 
-        // 1. Circle with colored circles inside
-        drawCircleWithDots(canvas, 200, 200);
+ @Override
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+    Paint paint = new Paint();
 
-        // 2. Blue rectangle with red text
-        drawBlueRectWithText(canvas, 600, 200);
+    // Draw magenta rectangle
+    paint.setColor(Color.MAGENTA);
+    RectF rect = new RectF(50, 100, 450, 200);  // position and size
+    canvas.drawRect(rect, paint);
 
-        // 3. Blue rectangle with red cross
-        drawRectWithCross(canvas, 200, 500);
+    // Draw text
+    paint.setColor(Color.WHITE); // white text for visibility
+    paint.setTextSize(40);
+    paint.setTextAlign(Paint.Align.CENTER);
+    
+    float x = rect.centerX();
+    float y = rect.centerY() - ((paint.descent() + paint.ascent()) / 2);  // center vertically
+    canvas.drawText("YOUR SECTION HERE", x, y, paint);
+}
 
-        // 4. Inverted Pacman facing left
-        drawPacman(canvas, 600, 500);
-    }
+3) Rectangle with cross
 
-    private void drawCircleWithDots(Canvas canvas, int x, int y) {
-        paint.setColor(Color.BLACK);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(3);
-        canvas.drawCircle(x, y, 80, paint);
-        
-        paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.RED);
-        canvas.drawCircle(x-30, y-20, 15, paint);
-        paint.setColor(Color.GREEN);
-        canvas.drawCircle(x+25, y-30, 18, paint);
-        paint.setColor(Color.BLUE);
-        canvas.drawCircle(x-10, y+35, 12, paint);
-        paint.setColor(Color.YELLOW);
-        canvas.drawCircle(x+30, y+15, 20, paint);
-    }
+@Override
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+    Paint paint = new Paint();
+    paint.setStrokeWidth(5);
+    
+    paint.setColor(Color.GREEN);
+    canvas.drawLine(0, 0, getWidth(), getHeight(), paint);
+    
+    paint.setColor(Color.BLUE);
+    canvas.drawLine(0, getHeight(), getWidth(), 0, paint);
+}
 
-    private void drawBlueRectWithText(Canvas canvas, int x, int y) {
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.FILL);
-        canvas.drawRect(x-60, y-30, x+60, y+30, paint);
-        
-        paint.setColor(Color.RED);
-        paint.setTextSize(20);
-        paint.setTextAlign(Paint.Align.CENTER);
-        canvas.drawText("TEXT", x, y+7, paint);
-    }
+4) Pacman
 
-    private void drawRectWithCross(Canvas canvas, int x, int y) {
-        paint.setColor(Color.BLUE);
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(4);
-        canvas.drawRect(x-50, y-35, x+50, y+35, paint);
-        
-        paint.setColor(Color.RED);
-        paint.setStrokeWidth(5);
-        canvas.drawLine(x-30, y, x+30, y, paint);
-        canvas.drawLine(x, y-25, x, y+25, paint); 
-    }
-
-    private void drawPacman(Canvas canvas, int x, int y) {
-        paint.setColor(Color.YELLOW);
-        paint.setStyle(Paint.Style.FILL);
-        RectF oval = new RectF(x-50, y-50, x+50, y+50);
-        canvas.drawArc(oval, 200, 320, true, paint);
-        
-        paint.setColor(Color.BLACK);
-        canvas.drawCircle(x-15, y-20, 5, paint);
-    }
+@Override
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+    Paint paint = new Paint();
+    paint.setStyle(Paint.Style.FILL);
+    
+    paint.setColor(Color.MAGENTA);
+    canvas.drawArc(new RectF(100, 100, 300, 300), 45, 270, true, paint);
+    
+    paint.setColor(Color.YELLOW);
+    canvas.drawCircle(180, 150, 10, paint); // eye
 }
