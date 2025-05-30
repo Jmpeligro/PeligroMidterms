@@ -21,6 +21,7 @@ public class CustomGraphicsView extends View {
         drawPacman(canvas, 600, 600);
     }
 
+1)
     private void drawTarget(Canvas canvas, int x, int y) {
         int[] colors = {Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, Color.MAGENTA};
         int radius = 100;
@@ -31,6 +32,7 @@ public class CustomGraphicsView extends View {
         }
     }
 
+2)
     private void drawMagentaBanner(Canvas canvas, int x, int y) {
         paint.setColor(Color.MAGENTA);
         canvas.drawRect(x, y, x + 300, y + 100, paint);
@@ -40,6 +42,7 @@ public class CustomGraphicsView extends View {
         canvas.drawText("YOUR SECTION HERE", x + 20, y + 60, paint);
     }
 
+3)
     private void drawGreenBoxWithBlueX(Canvas canvas, int x, int y) {
         // Green box
         paint.setColor(Color.GREEN);
@@ -56,6 +59,7 @@ public class CustomGraphicsView extends View {
         canvas.drawLine(x + 190, y + 10, x + 10, y + 190, paint);
     }
 
+4)
     private void drawPacman(Canvas canvas, int x, int y) {
         paint.setColor(Color.MAGENTA);
         RectF oval = new RectF(x, y, x + 200, y + 200);
